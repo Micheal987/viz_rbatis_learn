@@ -13,6 +13,7 @@ pub async fn rbatis_init() -> anyhow::Result<RBatis> {
         .database("rust_test");
     // 连接数据库
     rb.init_option::<PostgresDriver, PgConnectOptions, DefaultPool>(PostgresDriver {}, opts)?;
+    //rb.init(PostgresDriver {}, "postgres://postgres:123456@localhost:5433/rust_test").unwrap();
     // 查询版本
     sql_version(&rb).await;
     Ok(rb)

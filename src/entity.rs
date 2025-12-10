@@ -2,8 +2,8 @@ use rbatis::crud;
 use serde::{ Deserialize, Serialize };
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct UserActivity {
-    pub id: Option<i32>,
+    pub id: Option<i64>,
     pub name: String,
-    pub age: i32,
+    pub age: i64,
 }
-crud!(UserActivity {});
+crud!(UserActivity {}, "users");

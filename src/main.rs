@@ -7,16 +7,14 @@ use viz_rbatis_learn::state::AppState;
 use viz_rbatis_learn::db::rbatis_init;
 
 async fn index(mut req: Request) -> Result<&'static str> {
-    let db = &req.extract::<State<AppState>>().await.expect("sql失败").into_inner();
+    let state: &AppState = &req.extract::<State<AppState>>().await.expect("sql失败").into_inner();
     // 创建数据
     let activity: UserActivity = UserActivity {
         id: None,
-        name: String::from("fengfengzhidao"),
-        age: 25 as i32,
+        name: String::from("weiwei"),
+        age: 25,
     };
-    let data: rbatis::rbdc::db::ExecResult = UserActivity::insert(db.db(), &activity).await.expect(
-        "数据库插入失败"
-    );
+    let data = UserActivity::insert(&state.db, &activity).await.unwrap();
     println!("{:?}", data);
     Ok("Hello, Viz!")
 }
